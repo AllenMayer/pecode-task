@@ -1,0 +1,29 @@
+{
+  "name": "pecode_aqa_task",
+  "version": "1.0.0",
+  "description": "Automation QA task for Pecode",
+  "main": "index.js",
+  "scripts": {
+    "clean-reports": "run-script-os",
+    "clean-reports:win32": "rmdir /S /Q cypress\\reports && mkdir cypress\\reports && mkdir cypress\\reports\\mochareports",
+    "clean-reports:darwin": "rm -R -f cypress/reports && mkdir cypress/reports && mkdir cypress/reports/mochareports",
+    "pretest": "npm run clean-reports",
+    "scripts": "npx cypress run",
+    "combine-reports": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/mochareports/report.json",
+    "generate-report": "marge cypress/reports/mochareports/report.json -f report -o cypress/reports/mochareports",
+    "posttest": "npm run combine-reports && npm run generate-report",
+    "test": "npm run scripts || npm run posttest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^9.5.3",
+    "cypress-multi-reporters": "^1.5.0",
+    "dotenv": "^16.0.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.2.1",
+    "mochawesome-report-generator": "^6.2.0",
+    "run-script-os": "^1.1.6"
+  }
+}
